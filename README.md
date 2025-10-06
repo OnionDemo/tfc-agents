@@ -4,3 +4,10 @@ This is a companion repository for the [Using Cloud Agents learn
 guide](https://learn.hashicorp.com/tutorials/terraform/cloud-agents),
 and contains Terraform conifguration files for you to use to learn how to
 configure self-hosted Terraform Cloud Agents.
+
+
+---
+Updated: 
+Connects to a local Docker daemon via /var/run/docker.sock.
+Creates a private bridge network.
+Runs an NGINX container attached to that network.
