@@ -1,12 +1,12 @@
 variable "container_name" {
   type        = string
   description = "Name of the Docker container"
-  default     = "nginx_server"
+  default     = "nginx"
 }
 
 variable "image_name" {
   type        = string
-  description = "Docker image to use"
+  description = "Docker image name"
   default     = "nginx:latest"
 }
 
@@ -19,17 +19,11 @@ variable "internal_port" {
 variable "external_port" {
   type        = number
   description = "External host port"
-  default     = 8080
+  default     = 8000
 }
 
-variable "network_name" {
-  type        = string
-  description = "Docker network name"
-  default     = "my_app_network"
-}
-
-variable "volume_name" {
-  type        = string
-  description = "Docker volume name"
-  default     = "my_app_data"
+variable "keep_locally" {
+  type        = bool
+  description = "Keep image locally after destroy"
+  default     = false
 }
