@@ -1,3 +1,8 @@
+variable "docker_host" {
+  type        = string
+  description = "Docker host. On macOS/Linux, usually 'unix:///var/run/docker.sock'. Can also be TCP endpoint."
+}
+
 variable "container_name" {
   type        = string
   description = "Name of the Docker container"
