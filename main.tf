@@ -10,28 +10,14 @@ terraform {
   }
 }
 
-provider "docker" {
-  host = "unix:///var/run/docker.sock"
-}
+provider "docker" {}
 
-resource "docker_network" "private_net" {
-  name = "internal_network"
-  driver = "bridge"
-}
-
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
-}
-
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.name
-  name  = "nginx_server"
-  networks_advanced {
-    name = docker_network.private_net.name
-  }
-  ports {
-    internal = 80
-    external = 8000
-  }
+module "docker_app" {
+  source         = "./modules/docker-app"
+  container_name = var.container_name
+  image_name     = var.image_name
+  internal_port  = var.internal_port
+  external_port  = var.external_port
+  network_name   = var.network_name
+  volume_name    = var.volume_name
 }
