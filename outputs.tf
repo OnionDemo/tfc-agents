@@ -1,11 +1,10 @@
 output "container_id" {
-  value = module.docker_app.container_id
+  description = "ID of the created Docker container"
+  value       = docker_container.nginx.id
 }
 
-output "network_name" {
-  value = module.docker_app.network_name
+output "image_name" {
+  description = "Docker image name used"
+  value       = docker_image.nginx.name
 }
 
-output "volume_name" {
-  value = module.docker_app.volume_name
-}
