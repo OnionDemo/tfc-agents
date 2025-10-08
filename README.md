@@ -8,6 +8,4 @@ configure self-hosted Terraform Cloud Agents.
 
 ---
 Updated: 
-Connects to a local Docker daemon via /var/run/docker.sock.
-Creates a private bridge network.
-Runs an NGINX container attached to that network.
+Change it to the no-code module. 
