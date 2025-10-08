@@ -10,7 +10,9 @@ terraform {
   }
 }
 
-provider "docker" {}
+provider "docker" {
+  host = var.docker_host
+}
 
 # Pull Docker image
 resource "docker_image" "nginx" {
