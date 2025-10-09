@@ -1,18 +1,12 @@
-variable "docker_host" {
-  type        = string
-  description = "Docker host. On macOS/Linux, usually 'unix:///var/run/docker.sock'. Can also be TCP endpoint."
-}
-
 variable "container_name" {
   type        = string
   description = "Name of the Docker container"
-  default     = "nginx"
 }
 
 variable "image_name" {
   type        = string
-  description = "Docker image name"
-  default     = "nginx:latest"
+  description = "Docker image name (e.g., nginx:latest)"
+  default     ="nginx:latest"
 }
 
 variable "internal_port" {
@@ -23,12 +17,24 @@ variable "internal_port" {
 
 variable "external_port" {
   type        = number
-  description = "External host port"
+  description = "Host port to map to container"
   default     = 8000
 }
 
-variable "keep_locally" {
-  type        = bool
-  description = "Keep image locally after destroy"
-  default     = false
+variable "environment" {
+  type        = map(string)
+  description = "Environment variables for the container (key=value)"
+  default     = {}
+}
+
+variable "docker_network" {
+  type        = string
+  description = "Optional Docker network name to attach container (isolates container if set)"
+  default     = ""
+}
+
+locals {
+  environment_flags = [
+    for k, v in var.environment : "-e ${k}=${v}"
+  ]
 }
