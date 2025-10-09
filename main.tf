@@ -1,32 +1,23 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-      version = "~> 3.0"
-    }
+  required_version = ">= 1.5.0"
+}
+
+resource "null_resource" "docker_container" {
+  provisioner "local-exec" {
+    command = <<EOT
+docker run -d \
+  --name ${var.container_name} \
+  ${var.docker_network != "" ? "--network ${var.docker_network}" : "-p ${var.external_port}:${var.internal_port}"} \
+  ${join(" ", local.environment_flags)} \
+  ${var.image_name}
+EOT
+    interpreter = ["/bin/bash", "-c"]
   }
-}
 
-provider "docker" {
-  host = var.docker_host
-}
-
-# Pull Docker image
-resource "docker_image" "nginx" {
-  name         = var.image_name
-  keep_locally = var.keep_locally
-}
-
-# Create Docker container
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.name
-  name  = var.container_name
-
-  ports {
-    internal = var.internal_port
-    external = var.external_port
+  triggers = {
+    image         = var.image_name
+    container     = var.container_name
+    external_port = var.external_port
+    docker_network = var.docker_network
   }
 }
