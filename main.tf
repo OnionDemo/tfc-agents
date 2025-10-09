@@ -1,23 +1,33 @@
 terraform {
-  required_version = ">= 1.5.0"
-}
-
-resource "null_resource" "docker_container" {
-  provisioner "local-exec" {
-    command = <<EOT
-docker run -d \
-  --name ${var.container_name} \
-  ${var.docker_network != "" ? "--network ${var.docker_network}" : "-p ${var.external_port}:${var.internal_port}"} \
-  ${join(" ", local.environment_flags)} \
-  ${var.image_name}
-EOT
-    interpreter = ["/bin/bash", "-c"]
-  }
-
-  triggers = {
-    image         = var.image_name
-    container     = var.container_name
-    external_port = var.external_port
-    docker_network = var.docker_network
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0"
+    }
   }
 }
+
+provider "docker" {
+  # Connect to the Docker daemon available inside the Terraform Agent container
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pull Nginx image
+resource "docker_image" "nginx" {
+  name         = var.image_name
+  keep_locally = false
+}
+
+# Run Nginx container
+resource "docker_container" "nginx" {
+  name  = var.container_name
+  image = docker_image.nginx.name
+
+  ports {
+    internal = var.internal_port
+    external = var.external_port
+  }
+
+  restart = "unless-stopped"
+}
+
