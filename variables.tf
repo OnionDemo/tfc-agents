@@ -21,11 +21,11 @@ variable "external_port" {
   default     = 8000
 }
 
-variable "environment" {
-  type        = map(string)
-  description = "Environment variables for the container (key=value)"
-  default     = {}
-}
+#variable "environment" {
+  #type        = map(string)
+  #description = "Environment variables for the container (key=value)"
+  #default     = {}
+#}
 
 #variable "docker_network" {
   #type        = string
