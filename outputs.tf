@@ -8,7 +8,7 @@ output "image_used" {
   value       = var.image_name
 }
 
-output "docker_network_used" {
-  description = "Docker network attached (empty if host network)"
-  value       = var.docker_network
-}
+#output "docker_network_used" {
+  #description = "Docker network attached (empty if host network)"
+  #value       = var.docker_network
+#}
