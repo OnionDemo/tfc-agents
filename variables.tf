@@ -27,14 +27,14 @@ variable "environment" {
   default     = {}
 }
 
-variable "docker_network" {
-  type        = string
-  description = "Optional Docker network name to attach container (isolates container if set)"
-  default     = ""
-}
+#variable "docker_network" {
+  #type        = string
+  #description = "Optional Docker network name to attach container (isolates container if set)"
+  #default     = ""
+#}
 
-locals {
-  environment_flags = [
-    for k, v in var.environment : "-e ${k}=${v}"
-  ]
-}
+#locals {
+ #environment_flags = [
+    #for k, v in var.environment : "-e ${k}=${v}"
+ # ]
+#}
