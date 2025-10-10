@@ -18,20 +18,14 @@ resource "docker_image" "nginx" {
   keep_locally = false
 }
 
-# Random 4-digit suffix for container name
-resource "random_integer" "nginx_suffix" {
-  min = 1000
-  max = 9999
-}
-
-# Determine container name
-locals {
-  final_container_name = length(var.container_name) > 0 ? var.container_name : "nginx${random_integer.nginx_suffix.result}"
+resource "random_pet" "nginx_name" {
+  length = 1
+  separator = "-"
 }
 
 # Run Nginx container
 resource "docker_container" "nginx" {
-  name  = local.final_container_name
+  name  = "nginx-${random_pet.nginx_name.id}"  # e.g. "nginx-happy-dog"
   image = docker_image.nginx.name
 
   ports {
