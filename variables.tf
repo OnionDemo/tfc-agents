@@ -1,8 +1,8 @@
-variable "container_name" {
-  type        = string
-  description = "Name of the Docker container"
-  default     = ""
-}
+//variable "container_name" {
+ // type        = string
+ // description = "Name of the Docker container"
+ // default     = ""
+//}
 
 variable "image_name" {
   type        = string
