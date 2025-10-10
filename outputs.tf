@@ -1,6 +1,6 @@
 output "container_name" {
   description = "Name of the Docker container"
-  value       = var.docker_container.nginx.name
+  value       = docker_container.nginx.name 
 }
 
 output "image_used" {
