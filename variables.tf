@@ -1,8 +1,8 @@
-//variable "container_name" {
- // type        = string
- // description = "Name of the Docker container"
- // default     = ""
-//}
+variable "container_name" {
+  description = "Optional container name. If empty, a random name will be generated."
+  type        = string
+  default     = ""
+}
 
 variable "image_name" {
   type        = string
