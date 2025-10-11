@@ -1,11 +1,4 @@
-# Learn Terraform - Using Terraform Cloud Agents
-
-This is a companion repository for the [Using Cloud Agents learn
-guide](https://learn.hashicorp.com/tutorials/terraform/cloud-agents),
-and contains Terraform conifguration files for you to use to learn how to
-configure self-hosted Terraform Cloud Agents.
-
-
----
-Updated: 
-Change it to the no-code module. 
+# No-code module to provision Niginix container on Docker
+Simple use case to provision resources in Docker and outputs the container name. 
+For simple demo purpose, this code uses the default port and randomly generate the name for the container. 
+When using this module, if you create two containers in the same Docker desktop, you will run into the issue about conflict ports. Pls change the inputs accordingly. 
